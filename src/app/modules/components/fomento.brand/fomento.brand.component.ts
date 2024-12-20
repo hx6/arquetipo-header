@@ -26,9 +26,6 @@ export class FomentoBrandComponent implements OnInit {
 	name_parse: string[] = [];
 
 	ngOnInit() {
-		console.log('====================================');
-		console.log('brand');
-		console.log('====================================');
 
 		this.caption_parse = String(this.caption).split(/,(.*)/s);
 		this.name_parse = String(this.name).split(/,(.*)/s);

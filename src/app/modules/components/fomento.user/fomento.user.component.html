@@ -1,15 +1,15 @@
 
-<ng-template [ngIf]="!errores && type === 'advance'">
+<ng-template>
   <div class="h-100" [matMenuTriggerFor]="perfil">
     <div class="perfil_container">
-      <span class="perfil-t">PR</span>
+      <span class="perfil-t">JG</span>
       
       <i class="ri-more-2-fill"></i>
     </div>
 
     <mat-menu #perfil="matMenu" xPosition="before">
       <div class="container-menu-perfil">
-        <span class="nombre-usuario">Pedro Ráez</span>
+        <span class="nombre-usuario">{{ usuario }}</span>
         
         <ng-container *ngFor="let item of data">
           <div class="container-spans">         
@@ -71,7 +71,6 @@
                     [theme]="themeButton"
                     [label]="labelButtonCambiar"
                     [disabled]="disabledButtonCambiar"
-                    (click)="guardarPrivilegioEnLocalStorage()"
                   ></lib-fomento-button>
                 </div>
               </div>

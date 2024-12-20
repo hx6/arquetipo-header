@@ -21,6 +21,18 @@ import { FormsModule } from '@angular/forms';
 import { FomentoButtonComponent } from '../fomento.button/fomento.button.component';
 import { FomentoSelectComponent } from '../fomento.select/fomento.select.component';
 
+interface UserPrivilege {
+  value: string;
+  description: string;
+}
+
+interface UserProfile {
+  name: string;
+  currentPrivilege: string;
+  lastAccess: string;
+  availablePrivileges: UserPrivilege[];
+}
+
 @Component({
   selector: 'lib-fomento-user',
   standalone: true,
@@ -41,11 +53,27 @@ import { FomentoSelectComponent } from '../fomento.select/fomento.select.compone
 })
 export class FomentoUserComponent implements OnChanges, OnInit {
 
+  mockUserProfile: UserProfile = {
+    name: 'Juan García López',
+    currentPrivilege: 'ADMIN',
+    lastAccess: '2024-12-19 15:30',
+    availablePrivileges: [
+      { value: 'ADMIN', description: 'Administrador' },
+      { value: 'MANAGER', description: 'Gestor' },
+      { value: 'USER', description: 'Usuario' },
+      { value: 'VIEWER', description: 'Visualizador' }
+    ]
+  };
+
   constructor(
     private sanitizer: DomSanitizer,
     public dialog: MatDialog,
-  ) {} // Inyecta DomSanitizer aquí
-
+  ) {
+    this.usuario = this.mockUserProfile.name;
+    this.privilegioUsuario = this.mockUserProfile.currentPrivilege;
+    this.ultimoAcceso = this.mockUserProfile.lastAccess;
+    this.listaPrivilegios = this.mockUserProfile.availablePrivileges;
+  }
 
   /*****************************************************************/
   @ViewChild('template') customTemplate!: TemplateRef<unknown>;
@@ -54,9 +82,9 @@ export class FomentoUserComponent implements OnChanges, OnInit {
 
 
   //Atributos del select
-  @Input() listaPrivilegios: any[] = [
-    'privilegio',
-    'role'
+  @Input() listaPrivilegios: UserPrivilege[] = [
+    { value: 'privilegio', description: 'Privilegio' },
+    { value: 'role', description: 'Rol' }
   ];
   @Input() label = 'Cambiar privilegio a:';
   @Input() disabled = false;
@@ -81,7 +109,7 @@ export class FomentoUserComponent implements OnChanges, OnInit {
   @Input() themeButtonUser = 'secondary';
   @Input() apiPLDA = false;
   @Input() data: any;
-  @Input() usuario = 'Nombre Ejemplo';
+  @Input() usuario = '';
   @Input() privilegioUsuario = '';
   @Input() ultimoAcceso = '';
   iniciales_usuario = '';
@@ -109,6 +137,9 @@ export class FomentoUserComponent implements OnChanges, OnInit {
   }
 
   ngOnInit(): void {
+    console.log('====================================');
+    console.log('user');
+    console.log('====================================');
     // this.actualizarLista();
   }
 
@@ -173,7 +204,7 @@ export class FomentoUserComponent implements OnChanges, OnInit {
   listaParse = [];
   generarListaPrivilegios(): string[] {
     const res: string[] = [];
-    this.listaPrivilegios.forEach((x) => res.push(x.nombre));
+    this.listaPrivilegios.forEach((x) => res.push(x.description));
     return res;
   }
 
@@ -216,22 +247,22 @@ export class FomentoUserComponent implements OnChanges, OnInit {
     }
   }
 
-  guardarPrivilegioEnLocalStorage() {
-    if (this.privilegioUsuario) {
-      let aux = this.listaPrivilegios.find(
-        (x) => x.nombre === this.privilegioUsuario,
-      ).codigo;
-      localStorage.setItem('privilegio_actual', aux);
-      console.log(
-        'Privilegio seleccionado guardado en localStorage:',
-        localStorage,
-      );
-      this.privilegioGuardado.emit(this.privilegioUsuario);
-      this.privilegio = this.privilegioUsuario;
-      this.privilegioUsuario = aux;
-      this.dialog.closeAll();
-    } else {
-      console.error('No hay ningún privilegio seleccionado.');
-    }
-  }
+  // guardarPrivilegioEnLocalStorage() {
+  //   if (this.privilegioUsuario) {
+  //     let aux = this.listaPrivilegios.find(
+  //       (x) => x.description === this.privilegioUsuario,
+  //     ).value;
+  //     localStorage.setItem('privilegio_actual', aux);
+  //     console.log(
+  //       'Privilegio seleccionado guardado en localStorage:',
+  //       localStorage,
+  //     );
+  //     this.privilegioGuardado.emit(this.privilegioUsuario);
+  //     this.privilegio = this.privilegioUsuario;
+  //     this.privilegioUsuario = aux;
+  //     this.dialog.closeAll();
+  //   } else {
+  //     console.error('No hay ningún privilegio seleccionado.');
+  //   }
+  // }
 }
