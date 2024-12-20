@@ -1,17 +1,32 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css"/>
 
-<ng-template [ngIf]="typeStyle === 'material'">
+<ng-container *ngIf="typeStyle === 'material'">
   <div>
-    <p>hola</p>
-  <lib-fomento-header [version]="version" [mostrarfecha]="mostrarfecha" [mostrarhora]="mostrarhora" [urlAyuda]="urlAyuda" [mostrarAyuda]="mostrarAyuda" />
-</div>
+    <lib-fomento-header [version]="version" [mostrarfecha]="mostrarfecha" [mostrarhora]="mostrarhora" [urlAyuda]="urlAyuda" [mostrarAyuda]="mostrarAyuda" />
+  </div>
   <i class="fa fa-bars iconoRes" *ngIf="mostrar_menu || data_mat.length === 0" role="button"
     (click)="mostrarDesplegable($event)" (keypress)="mostrarDesplegable" tabindex="0"></i>
-  <!-- <mat-toolbar class="mat-container">
-    <lib-fomento-brand [brandStyle]="brandStyle" [name]="brandName" [caption]="brandCaption" [src]="brandSrc" [alt_text]="alt_text"></lib-fomento-brand>
+  <mat-toolbar class="mat-container">
+    <lib-fomento-brand 
+      [brandStyle]="brandStyle"
+      [name]="brandName"
+      [caption]="brandCaption"
+      [src]="brandSrc"
+      [alt_text]="'Junta de Andalucía'"
+      [href_logo]="'#'"
+      [href_caption]="'#'"
+    ></lib-fomento-brand>
     <span class="example-spacer"></span>
-    <lib-fomento-menu [DATA]="data_mat" *ngIf="mostrar_menu" [nombre_usuario]="nombre_usuario" [mostrarmenu_usuario]="mostrarmenu_usuario" [listaPrivilegios]="listaPrivilegios" [ultimoAcceso]="ultimoAcceso" [type]="type"/>
+    <lib-fomento-menu 
+      [DATA]="data_mat"
+      *ngIf="mostrar_menu"
+      [nombre_usuario]="nombre_usuario"
+      [mostrarmenu_usuario]="mostrarmenu_usuario"
+      [listaPrivilegios]="listaPrivilegios"
+      [ultimoAcceso]="ultimoAcceso"
+      [type]="type"
+    ></lib-fomento-menu>
   </mat-toolbar>
-  <div class="barraH"></div> -->
-</ng-template>
+  <div class="barraH"></div>
+</ng-container>

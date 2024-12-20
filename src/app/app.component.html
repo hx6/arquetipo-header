@@ -1,12 +1,3 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
 <style>
   :host {
     --bright-blue: oklch(51.01% 0.274 263.83);
@@ -177,12 +168,18 @@
   }
 </style>
 
-<router-outlet></router-outlet>
-
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<lib-fomento-nav
+  [typeStyle]="'material'"
+  [mostrar_menu]="true"
+  [mostrarmenu_usuario]="true"
+  [mostrarfecha]="true"
+  [mostrarhora]="true"
+  [mostrarAyuda]="true"
+  [urlAyuda]="'https://example.com/help'"
+  [brandStyle]="'material'"
+  [brandName]="'Junta de Andalucía'"
+  [brandCaption]="'Consejería de Fomento'"
+  [brandSrc]="'assets/img/Logo-JDA_CFIOT.svg'"
+  [data_mat]="menuData"
+></lib-fomento-nav>
+<!-- <router-outlet></router-outlet> -->

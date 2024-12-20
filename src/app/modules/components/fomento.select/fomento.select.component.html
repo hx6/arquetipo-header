@@ -1,0 +1,40 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.0.1/remixicon.css"/>
+
+<div class="select-container">
+  <label class="select-title" *ngIf="label" [attr.for]="selectId">{{ label }}</label>
+  
+  <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+    <mat-select 
+      [id]="selectId" 
+      [panelClass]="readonly ? 'hidden' : 'panel-select'" 
+      class="fomento-select" 
+      [disableOptionCentering]="true" 
+      [required]="isRequired" 
+      [disabled]="readonly || disabled" 
+      [tabindex]="readonly || disabled ? -1 : 0" 
+      [(value)]="selected" 
+      (selectionChange)="onOptionChange($event.value)" 
+      [attr.aria-labelledby]="label ? selectId : null" 
+      [attr.aria-describedby]="additionalDescription && selected === 'option1' ? descriptionId : null" 
+      [attr.aria-expanded]="!readonly">
+      
+      <mat-option value="option1" [hidden]="true" aria-hidden="true">
+        {{ default }}
+      </mat-option>
+
+      <mat-option *ngFor="let option of data" [value]="option.value">
+        {{ option.description }}
+      </mat-option>
+    </mat-select>
+
+    <span matSuffix class="ri-arrow-down-s-line"></span>
+  </mat-form-field>
+
+  <div *ngIf="hasError" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="additionalDescription && selected === 'option1'" [id]="descriptionId" class="additional-description">
+    {{ additionalDescription }}
+  </div>
+</div>
