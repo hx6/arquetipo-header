@@ -1,4 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 interface MenuData {
 	secciones: Array<{
@@ -22,13 +26,20 @@ interface MenuData {
 @Component({
   selector: 'lib-fomento-select',
   standalone: true,
+  imports: [
+    CommonModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
   templateUrl: './fomento.select.component.html',
   styleUrls: ['./fomento.select.component.scss'],
 })
 export class FomentoSelectComponent {
-  @Input() data: {value: string, description: string}[];
+  @Input() data: { value: string; description: string; }[] | undefined;
   @Input() label = '';
-  @Input() disabled: boolean;
+  @Input() disabled: boolean= false;
   @Input() default = '- Elija una opción -';
   @Input() formControlName = "";
   @Input() additionalDescription =''; // Texto que aparecerá debajo del select mientras que no se seleccione ninguuna opción.
@@ -36,7 +47,7 @@ export class FomentoSelectComponent {
   @Input() ariaLabelledby = ''; 
   @Input() isRequired = false; 
   @Input() readonly = false; 
-  @Input() endpoint: string;
+  @Input() endpoint: string | undefined;
   hideRequiredMarker = false;
   hasError = false; 
   errorMessage = ''; 

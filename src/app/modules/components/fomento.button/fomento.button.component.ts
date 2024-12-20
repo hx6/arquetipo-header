@@ -7,16 +7,27 @@ import {
 	SecurityContext,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-// import '@matter/matter-button/dist/matter-button';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatRippleModule } from '@angular/material/core';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @Component({
 	selector: 'lib-fomento-button',
 	standalone: true,
+	imports: [
+		CommonModule,
+		MatButtonModule,
+		MatRippleModule,
+		MatBadgeModule
+	],
 	templateUrl: './fomento.button.component.html',
 	styleUrls: ['./fomento.button.component.scss'],
 })
 export class FomentoButtonComponent implements OnChanges {
-	constructor(private sanitizer: DomSanitizer) {} // Inyecta DomSanitizer aquí
+	constructor(private sanitizer: DomSanitizer) {
+		this.validIcon = false;
+	}
 
 	@Input() type: 'button'|'submit'|'reset' = 'button'
 
@@ -31,11 +42,9 @@ export class FomentoButtonComponent implements OnChanges {
 	@Input() disableRipple = true;
 	@Input() badge = '';
 
-// TODO Añadir input para que acepte una función que permita darle funcionalidad al botón
-
 	@Output() onclickevent = new EventEmitter<unknown>();	
 
-	validIcon: boolean = false;
+	validIcon = false;
 
 	clickbutton(event: Event) {
 		if (this.href) {
@@ -64,10 +73,14 @@ export class FomentoButtonComponent implements OnChanges {
 		if (this.label !== '') {
 			try {
 				this.sanitizeContent(this.label);
-			} catch (err) {
+			} catch (error: unknown) {
 				this.label = 'Error';
 				this.icon = 'times-circle';
-				console.error(err.message);
+				if (error instanceof Error) {
+					console.error(error.message);
+				} else {
+					console.error('An unknown error occurred');
+				}
 			}
 		}
 	}

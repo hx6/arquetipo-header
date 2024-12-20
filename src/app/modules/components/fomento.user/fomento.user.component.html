@@ -1,64 +1,107 @@
-<div class="user-menu" *ngIf="!errores">
-  <div class="user-trigger" [matMenuTriggerFor]="userMenu">
-    <span class="user-initials">{{ usuario | slice:0:2 }}</span>
-    <i class="ri-arrow-down-s-line"></i>
-  </div>
 
-  <mat-menu #userMenu="matMenu" xPosition="before">
-    <div class="user-menu-content">
-      <div class="user-header">
-        <span class="user-name">{{ usuario }}</span>
-        <span class="user-role" *ngIf="listaPrivilegios?.length">{{ listaPrivilegios[0] }}</span>
-      </div>
-
-      <div class="user-info" *ngIf="ultimoAcceso">
-        <span class="last-access">{{ ultimoAcceso }}</span>
-      </div>
-
-      <div class="user-actions">
-        <button mat-menu-item *ngIf="data?.length > 0 && data[2]" (click)="openDialog()">
-          <i [class]="data[2].iconChangeRol"></i>
-          <span>{{ data[2].labelBotonCambiaRol || 'Cambiar de rol' }}</span>
-        </button>
-
-        <button mat-menu-item *ngIf="data?.length > 0 && data[3]">
-          <i [class]="data[3].iconLogOut"></i>
-          <span>{{ data[3].labelBotonlogOut || 'Cerrar sesión' }}</span>
-        </button>
-      </div>
-    </div>
-  </mat-menu>
-</div>
-
-<ng-template #dialogTemplate>
-  <div class="dialog-content">
-    <div class="dialog-header">
-      <h2>Cambio de privilegio</h2>
-      <button mat-icon-button (click)="closeDialog()">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-
-    <mat-divider></mat-divider>
-
-    <div class="dialog-body">
-      <p>Ha accedido a la aplicación con el privilegio <strong>{{ listaPrivilegios[0] }}</strong></p>
+<ng-template [ngIf]="!errores && type === 'advance'">
+  <div class="h-100" [matMenuTriggerFor]="perfil">
+    <div class="perfil_container">
+      <span class="perfil-t">PR</span>
       
-      <mat-form-field appearance="outline">
-        <mat-label>Cambiar privilegio a:</mat-label>
-        <mat-select [(value)]="selectedPrivilege">
-          <mat-option *ngFor="let priv of listaPrivilegios" [value]="priv">
-            {{ priv }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <i class="ri-more-2-fill"></i>
     </div>
 
-    <div class="dialog-actions">
-      <button mat-button (click)="closeDialog()">Cancelar</button>
-      <button mat-raised-button color="primary" [disabled]="!selectedPrivilege" (click)="changeRole()">
-        Cambiar
-      </button>
+    <mat-menu #perfil="matMenu" xPosition="before">
+      <div class="container-menu-perfil">
+        <span class="nombre-usuario">Pedro Ráez</span>
+        
+        <ng-container *ngFor="let item of data">
+          <div class="container-spans">         
+            <span class="span-funcion" *ngIf="privilegio && privilegio !== ''" [innerText]="privilegio"></span> 
+            
+            <span class="span-ultimoAcceso" *ngIf="ultimoAcceso && ultimoAcceso !== ''" [innerText]="ultimoAcceso"></span>      
+          </div>
+
+          <div class="container-buttons"> 
+            <lib-fomento-button
+              [theme]="themeButtonUser"
+              [label]="labelButtonCambiarRol"
+              [disabled]="disabledButtonCambiarRol"
+              [icon]="item.iconChangeRol"
+              (click)="clickBotonCambiaRol($event)"
+            ></lib-fomento-button>
+              
+            <lib-fomento-button
+              [theme]="themeButtonUser"
+              [label]="labelButtonCerrarSesion"
+              [disabled]="disabledButtonCerrarSesion"
+              [icon]="item.iconLogOut"
+            ></lib-fomento-button>
+
+            <ng-template #template>
+              <div class="container-dialog">
+                <div>
+                  <div class="container-headerDialog">
+                    <p class="title-dialog"><strong>Cambio de privilegio</strong></p>
+
+                    <button class="close-button" (click)="closeDialog()"><i class="fas fa-times"></i></button>
+                  </div>
+                  <hr class="divider">
+                </div>
+
+                <div class="container-textSelect">
+                  <p class="text-dialog">Ha accedido a la aplicación con el privilegio <strong [innerText]="privilegio"></strong></p>
+      
+                  <lib-fomento-select 
+                      class="select-dialog"
+                      [data]="listaParse" 
+                      [label]="label" 
+                      [disabled]="disabled" 
+                      [default]="default"
+                      (changeOptionAction)="selectPrivilegio($event)"
+                      >
+                  </lib-fomento-select>
+                </div>
+        
+                <div class="container-buttonDialog">
+                  <lib-fomento-button
+                    [theme]="themeButton"
+                    [label]="labelButtonCancelar"
+                    [disabled]="disabledButtonCancelar"
+                    (click)="closeDialog()">
+                  </lib-fomento-button>
+          
+                  <lib-fomento-button
+                    [theme]="themeButton"
+                    [label]="labelButtonCambiar"
+                    [disabled]="disabledButtonCambiar"
+                    (click)="guardarPrivilegioEnLocalStorage()"
+                  ></lib-fomento-button>
+                </div>
+              </div>
+            </ng-template>              
+          </div>
+        </ng-container>
+      </div>
+    </mat-menu>
+  </div>
+</ng-template>
+
+<ng-template [ngIf]="!errores && type === 'basic'">
+  <div class="h-100" [matMenuTriggerFor]="perfil">
+    <div class="perfil_container">
+      <span class="perfil-t">{{ iniciales_usuario }}</span>
+      <i class="ri-more-2-fill"></i>
     </div>
+
+    <mat-menu #perfil="matMenu" xPosition="before">
+      <div class="container-menu-perfil">
+        <span class="nombre-usuario">{{ usuario }}</span>
+
+        <ng-container *ngFor="let item of data">
+          <div class="container-button-basic">
+            <i class='{{item.iconOff}}'></i>
+
+            <span>Cerrar sesión</span>
+          </div>
+        </ng-container>
+      </div>
+    </mat-menu>
   </div>
 </ng-template>

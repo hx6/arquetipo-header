@@ -18,6 +18,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
+import { FomentoButtonComponent } from '../fomento.button/fomento.button.component';
+import { FomentoSelectComponent } from '../fomento.select/fomento.select.component';
 
 @Component({
   selector: 'lib-fomento-user',
@@ -30,7 +32,9 @@ import { FormsModule } from '@angular/forms';
     MatMenuModule,
     MatDividerModule,
     MatFormFieldModule,
-    FormsModule
+    FormsModule,
+    FomentoButtonComponent,
+    FomentoSelectComponent
   ],
   templateUrl: './fomento.user.component.html',
   styleUrls: ['./fomento.user.component.scss'],
@@ -50,7 +54,10 @@ export class FomentoUserComponent implements OnChanges, OnInit {
 
 
   //Atributos del select
-  @Input() listaPrivilegios: any[] = [];
+  @Input() listaPrivilegios: any[] = [
+    'privilegio',
+    'role'
+  ];
   @Input() label = 'Cambiar privilegio a:';
   @Input() disabled = false;
   @Input() default = 'Selecciona privilegio';

@@ -1,5 +1,5 @@
 @use '../../../../assets/variables.scss';
-@import '../../../../assets/theme-JdA.scss';
+@import '../../../../assets/variables.scss';
 
 :host {
 	display: block;
@@ -162,11 +162,17 @@ i {
 	margin-right: 4px;
 }
 
-
 .button-container {
-	display: flex !important;
-	gap: 10px !important;
-	flex-wrap: wrap !important;
+	display: inline-block;
+	margin: 0.25rem;
+
+  button {
+    &.has-font-icon {
+      i {
+        margin-right: 0.5rem;
+      }
+    }
+  }
 }
 
 button .mat-icon {
