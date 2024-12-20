@@ -1,10 +1,11 @@
-import { Component, OnInit, OnChanges, Input, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, OnChanges, Input, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FomentoCabeceraComponent } from '../fomento.header/fomento.header.component';
 
 @Component({
   selector: 'lib-fomento-nav',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FomentoCabeceraComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './fomento.nav.component.html',
   styleUrls: ['./fomento.nav.component.scss']
