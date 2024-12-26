@@ -741,45 +741,47 @@ div.mat-mdc-select-panel.panel-select {
 /* ===========================      fomento.input-group       =========================================*/
 
 lib-fomento-input-group {
-	.mdc-text-field--outlined:not(.mdc-text-field--disabled)
-		.mdc-notched-outline__leading,
-	.mdc-text-field--outlined:not(.mdc-text-field--disabled)
-		.mdc-notched-outline__notch,
-	.mdc-text-field--outlined:not(.mdc-text-field--disabled)
-		.mdc-notched-outline__trailing {
-		border-color: variables.$primary-light-color !important;
-		border-width: 2px !important;
-	}
+  .matInputJunta {
+    .mat-mdc-form-field-flex {
+      background-color: white;
+    }
+    
+    .mat-mdc-form-field-wrapper {
+      padding-bottom: 0;
+    }
 
-	.select-container
-		.mdc-text-field--outlined:not(.mdc-text-field--disabled)
-		.mdc-notched-outline__leading,
-	.select-container
-		.mdc-text-field--outlined:not(.mdc-text-field--disabled)
-		.mdc-notched-outline__notch,
-	.select-container
-		.mdc-text-field--outlined:not(.mdc-text-field--disabled)
-		.mdc-notched-outline__trailing {
-		border-color: variables.$primary-color !important;
-		border-width: 2px !important;
-	}
+    .mat-mdc-form-field-infix {
+      min-height: 40px;
+      padding: 8px 0;
+    }
 
-	.mdc-text-field__input {
-		font-family: variables.$source-sans-pro-font !important;
-		font-weight: 600 !important;
-		font-size: 14px !important;
-		color: #bebebe;
-		letter-spacing: normal !important;
-	}
+    // Default border style
+    .mdc-text-field--outlined:not(.mdc-text-field--disabled) {
+      .mdc-notched-outline__leading,
+      .mdc-notched-outline__notch,
+      .mdc-notched-outline__trailing {
+        border-color: #bebebe;
+        border-width: 1px;
+      }
+    }
 
-	.mat-mdc-text-field-wrapper.mdc-text-field--outlined
-		.mat-mdc-form-field-infix {
-		padding: 12px 0 !important;
-	}
+    // Focused border style
+    .mdc-text-field--focused {
+      .mdc-notched-outline__leading,
+      .mdc-notched-outline__notch,
+      .mdc-notched-outline__trailing {
+        border-color: variables.$primary-color !important;
+        border-width: 2px !important;
+      }
+    }
+  }
 
-	.mat-mdc-form-field-infix {
-		min-height: 45px;
-	}
+  // Button styles
+  .buttonInput {
+    height: 100%;
+    margin-left: -1px;
+    border-radius: 0 4px 4px 0;
+  }
 }
 
 /* ===========================      fomento.input       =========================================*/
